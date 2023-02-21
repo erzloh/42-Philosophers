@@ -6,14 +6,14 @@
 /*   By: eholzer <eholzer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 12:59:08 by eholzer           #+#    #+#             */
-/*   Updated: 2023/02/21 13:00:34 by eholzer          ###   ########.fr       */
+/*   Updated: 2023/02/21 15:38:21 by eholzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
 // Check that the number of arguments is correct
-void	check_arguments(int ac)
+int	check_arguments(int ac)
 {
 	if (ac != 5 && ac != 6)
 	{
@@ -21,8 +21,9 @@ void	check_arguments(int ac)
 		printf("./program <number_of_philosophers> <time_to_die> ");
 		printf("<time_to_eat> <time_to_sleep> ");
 		printf("optional:<number_of_times_each_philosopher_must_eat>\n");
-		exit(1);
+		return (-1);
 	}
+	return (0);
 }
 
 // Initialize the data struct with the program's arguments
