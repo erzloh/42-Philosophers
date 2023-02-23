@@ -6,7 +6,7 @@
 /*   By: eholzer <eholzer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 10:18:22 by eholzer           #+#    #+#             */
-/*   Updated: 2023/02/21 16:02:15 by eholzer          ###   ########.fr       */
+/*   Updated: 2023/02/23 16:01:12 by eholzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,14 @@
 // Function executed by the thread
 void	*routine()
 {
+	int *res;
+	
+	res = malloc(sizeof(int));
+	*res = 42;
 	// pthread_mutex_lock(&data->mutex);
 	printf("thread is being used\n");
 	// pthread_mutex_unlock(&data->mutex);
-	return (0);
+	return ((void *) res);
 }
 
 // Create the threads represented as philosophers
@@ -56,12 +60,13 @@ int	join_philosophers(t_data *data)
 	i = 0;
 	while (i < data->philo_nb)
 	{
-		if (pthread_join(data->ph[i], NULL) != 0)
+		if (pthread_join(data->ph[i], (void **) &data->res) != 0)
 		{
 			printf("Error: Couldn't join the thread.");
 			return (-1);
 		}
 		printf("Thread number %d has finished\n", i);
+		printf("res = %d\n", *data->res);
 		i++;
 	}
 	return (0);

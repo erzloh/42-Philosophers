@@ -6,7 +6,7 @@
 /*   By: eholzer <eholzer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 11:59:59 by eholzer           #+#    #+#             */
-/*   Updated: 2023/02/21 15:50:01 by eholzer          ###   ########.fr       */
+/*   Updated: 2023/02/23 15:53:52 by eholzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct s_data
 	int				time_to_sleep;
 	int				meals_nb;
 	pthread_mutex_t	mutex;
+	int				*res;
 }	t_data;
 
 // Utils functions
