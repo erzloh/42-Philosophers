@@ -6,7 +6,7 @@
 /*   By: eholzer <eholzer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 12:59:08 by eholzer           #+#    #+#             */
-/*   Updated: 2023/02/21 15:38:21 by eholzer          ###   ########.fr       */
+/*   Updated: 2023/02/28 16:02:39 by eholzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,43 @@ int	check_arguments(int ac)
 	return (0);
 }
 
-// Initialize the data struct with the program's arguments
-void	init_data(int ac, char **av, t_data *data)
+int	init_philo(t_data *data_ptr)
 {
-	data->philo_nb = ft_atoi(av[1]);
-	data->time_to_die = ft_atoi(av[2]);
-	data->time_to_eat = ft_atoi(av[3]);
-	data->time_to_sleep = ft_atoi(av[4]);
+	int		i;
+	t_ph	*ph;
+
+	i = 0;
+	ph = malloc(sizeof(t_ph) * data_ptr->philo_nb);
+	if (ph == NULL)
+		return (1);
+	while (i < data_ptr->philo_nb)
+	{
+		ph[i].id = i;
+		ph[i].data_ptr = data_ptr;
+		i++;
+	}
+	data_ptr->ph = ph;
+	return (0);
+}
+
+// Initialize the data struct with the program's arguments
+int	init_data(int ac, char **av, t_data *data_ptr)
+{
+	data_ptr->philo_nb = ft_atoi(av[1]);
+	data_ptr->fork = malloc(sizeof(int) * data_ptr->philo_nb);
+	if (data_ptr->fork == NULL)
+		return (1);
+	data_ptr->time_to_die = ft_atoi(av[2]);
+	data_ptr->time_to_eat = ft_atoi(av[3]);
+	data_ptr->time_to_sleep = ft_atoi(av[4]);
 	if (ac == 6)
-		data->meals_nb = ft_atoi(av[5]);
+		data_ptr->meals_nb = ft_atoi(av[5]);
 	else
-		data->meals_nb = -1;
+		data_ptr->meals_nb = -1;
+	gettimeofday(&data_ptr->curr_time, NULL);
+	data_ptr->init_time = data_ptr->curr_time.tv_sec;
+	pthread_mutex_init(&data_ptr->mutex, NULL);
+	if (init_philo(data_ptr) != 0)
+		return (1);
+	return (0);
 }
