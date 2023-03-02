@@ -6,7 +6,7 @@
 /*   By: eholzer <eholzer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 12:59:08 by eholzer           #+#    #+#             */
-/*   Updated: 2023/02/28 16:02:39 by eholzer          ###   ########.fr       */
+/*   Updated: 2023/03/02 15:43:13 by eholzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	init_data(int ac, char **av, t_data *data_ptr)
 	else
 		data_ptr->meals_nb = -1;
 	gettimeofday(&data_ptr->curr_time, NULL);
-	data_ptr->init_time = data_ptr->curr_time.tv_sec;
+	data_ptr->init_time = data_ptr->curr_time.tv_usec;
 	pthread_mutex_init(&data_ptr->mutex, NULL);
 	if (init_philo(data_ptr) != 0)
 		return (1);

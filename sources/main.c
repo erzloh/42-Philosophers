@@ -6,21 +6,31 @@
 /*   By: eholzer <eholzer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 10:18:22 by eholzer           #+#    #+#             */
-/*   Updated: 2023/02/28 16:14:08 by eholzer          ###   ########.fr       */
+/*   Updated: 2023/03/02 16:16:13 by eholzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
+long int	get_timestamp(t_data *data_ptr)
+{
+	long int	timestamp;
+
+	gettimeofday(&data_ptr->curr_time, NULL);
+	timestamp = (data_ptr->curr_time.tv_usec - data_ptr->init_time) / 1000;
+	return (timestamp);
+}
+
 // Function executed by the thread
 void	*routine(void *arg)
 {
-	t_ph	*ph_ptr;
+	t_ph		*ph_ptr;
 
 	ph_ptr = (t_ph *)arg;
 	printf("thread %d has started\n", ph_ptr->id);
 	pthread_mutex_lock(&ph_ptr->data_ptr->mutex);
-	printf("thread %d has accessed data\n", ph_ptr->id);
+	printf("%ld thread %d has taken a fork\n", get_timestamp(ph_ptr->data_ptr), ph_ptr->id);
+	usleep(1000000);
 	pthread_mutex_unlock(&ph_ptr->data_ptr->mutex);
 	return ((void *)0);
 }
