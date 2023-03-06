@@ -6,7 +6,7 @@
 /*   By: eholzer <eholzer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 10:18:22 by eholzer           #+#    #+#             */
-/*   Updated: 2023/03/02 16:16:13 by eholzer          ###   ########.fr       */
+/*   Updated: 2023/03/06 15:19:48 by eholzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,30 @@ long int	get_timestamp(t_data *data_ptr)
 void	*routine(void *arg)
 {
 	t_ph		*ph_ptr;
+	int			id;
+	t_data		*data_ptr;
 
 	ph_ptr = (t_ph *)arg;
-	printf("thread %d has started\n", ph_ptr->id);
-	pthread_mutex_lock(&ph_ptr->data_ptr->mutex);
-	printf("%ld thread %d has taken a fork\n", get_timestamp(ph_ptr->data_ptr), ph_ptr->id);
-	usleep(1000000);
-	pthread_mutex_unlock(&ph_ptr->data_ptr->mutex);
+	id = ph_ptr->id;
+	data_ptr = ph_ptr->data_ptr;
+	printf("thread %d has started\n", id);
+	if (data_ptr->fork[id] == 1
+		&& data_ptr->fork[(id + 1) % data_ptr->philo_nb] == 1)
+	{
+		data_ptr->fork[id] = 0;
+		data_ptr->fork[(id + 1) % data_ptr->philo_nb] = 0;
+		pthread_mutex_lock(&ph_ptr->mutex);
+		printf("%ld thread %d has taken its fork\n",
+			get_timestamp(ph_ptr->data_ptr), id);
+		// usleep(1000000);
+		pthread_mutex_lock(&data_ptr->ph[(id + 1) % data_ptr->philo_nb].mutex);
+		printf("%ld thread %d has taken its neighbor's fork\n",
+			get_timestamp(ph_ptr->data_ptr), id);
+		pthread_mutex_unlock(&ph_ptr->mutex);
+		data_ptr->fork[id] = 1;
+		pthread_mutex_unlock(&data_ptr->ph[(id + 1) % data_ptr->philo_nb].mutex);
+		data_ptr->fork[(id + 1) % data_ptr->philo_nb] = 1;
+	}
 	return ((void *)0);
 }
 
@@ -71,6 +88,7 @@ int	join_threads(t_data *data_ptr)
 			return (-1);
 		}
 		printf("thread %d has finished\n", i);
+		pthread_mutex_destroy(&data_ptr->ph[i].mutex);
 		i++;
 	}
 	return (0);
@@ -78,7 +96,6 @@ int	join_threads(t_data *data_ptr)
 
 void	free_memory(t_data *data_ptr)
 {
-	pthread_mutex_destroy(&data_ptr->mutex);
 	free(data_ptr->fork);
 	free(data_ptr->ph);
 }

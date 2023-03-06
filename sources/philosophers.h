@@ -6,7 +6,7 @@
 /*   By: eholzer <eholzer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 11:59:59 by eholzer           #+#    #+#             */
-/*   Updated: 2023/03/02 15:23:19 by eholzer          ###   ########.fr       */
+/*   Updated: 2023/03/06 11:14:45 by eholzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef struct s_ph
 	pthread_t		th;
 	int				id;
 	t_data			*data_ptr;
+	pthread_mutex_t	mutex;
 }	t_ph;
 
 typedef struct s_data
@@ -40,7 +41,6 @@ typedef struct s_data
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				meals_nb;
-	pthread_mutex_t	mutex;
 	int				*res;
 	struct timeval	curr_time;
 	long int		init_time;
