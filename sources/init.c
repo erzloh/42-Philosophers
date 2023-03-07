@@ -6,7 +6,7 @@
 /*   By: eholzer <eholzer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 12:59:08 by eholzer           #+#    #+#             */
-/*   Updated: 2023/03/06 14:59:47 by eholzer          ###   ########.fr       */
+/*   Updated: 2023/03/07 17:02:38 by eholzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,48 +26,49 @@ int	check_arguments(int ac)
 	return (0);
 }
 
-int	init_philo(t_data *data_ptr)
+int	init_philo(t_data *data)
 {
 	int		i;
 	t_ph	*ph;
 
 	i = 0;
-	ph = malloc(sizeof(t_ph) * data_ptr->philo_nb);
+	ph = malloc(sizeof(t_ph) * data->philo_nb);
 	if (ph == NULL)
 		return (1);
-	while (i < data_ptr->philo_nb)
+	while (i < data->philo_nb)
 	{
 		ph[i].id = i;
-		ph[i].data_ptr = data_ptr;
+		ph[i].data = data;
 		pthread_mutex_init(&ph[i].mutex, NULL);
 		i++;
 	}
-	data_ptr->ph = ph;
+	data->ph = ph;
 	return (0);
 }
 
 // Initialize the data struct with the program's arguments
-int	init_data(int ac, char **av, t_data *data_ptr)
+int	init_data(int ac, char **av, t_data *data)
 {
 	int	i;
 
 	i = -1;
-	data_ptr->philo_nb = ft_atoi(av[1]);
-	data_ptr->fork = malloc(sizeof(int) * data_ptr->philo_nb);
-	if (data_ptr->fork == NULL)
+	data->philo_nb = ft_atoi(av[1]);
+	data->fork = malloc(sizeof(int) * data->philo_nb);
+	if (data->fork == NULL)
 		return (1);
-	while (++i < data_ptr->philo_nb)
-		data_ptr->fork[i] = 1;
-	data_ptr->time_to_die = ft_atoi(av[2]);
-	data_ptr->time_to_eat = ft_atoi(av[3]);
-	data_ptr->time_to_sleep = ft_atoi(av[4]);
+	while (++i < data->philo_nb)
+		data->fork[i] = 1;
+	data->time_to_die = ft_atoi(av[2]);
+	data->time_to_eat = ft_atoi(av[3]);
+	data->time_to_sleep = ft_atoi(av[4]);
 	if (ac == 6)
-		data_ptr->meals_nb = ft_atoi(av[5]);
+		data->meals_nb = ft_atoi(av[5]);
 	else
-		data_ptr->meals_nb = -1;
-	gettimeofday(&data_ptr->curr_time, NULL);
-	data_ptr->init_time = data_ptr->curr_time.tv_usec;
-	if (init_philo(data_ptr) != 0)
+		data->meals_nb = -1;
+	gettimeofday(&data->curr_time, NULL);
+	data->init_sec = data->curr_time.tv_sec;
+	data->init_usec = data->curr_time.tv_usec;
+	if (init_philo(data) != 0)
 		return (1);
 	return (0);
 }
