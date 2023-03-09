@@ -6,18 +6,11 @@
 /*   By: eholzer <eholzer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 10:18:22 by eholzer           #+#    #+#             */
-/*   Updated: 2023/03/07 17:27:22 by eholzer          ###   ########.fr       */
+/*   Updated: 2023/03/09 17:09:20 by eholzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
-
-long int	absolute(long int n)
-{
-	if (n < 0)
-		return (n * -1);
-	return (n);
-}
 
 long int	get_timestamp(t_data *data)
 {
@@ -42,29 +35,43 @@ void	*routine(void *arg)
 	t_ph		*ph;
 	int			id;
 	t_data		*data;
+	long int	time_start_eating;
+	int			meal;
 
 	ph = (t_ph *)arg;
 	id = ph->id;
 	data = ph->data;
+	meal = 0;
 	// printf("thread %d has started\n", id);
-	while (data->fork[id] != 1
-		&& data->fork[(id + 1) % data->philo_nb] != 1)
+	while (data->meals_nb == -1 || meal < data->meals_nb)
 	{
+		time_start_eating = get_timestamp(data);
+		while (data->fork[id] != 1
+			&& data->fork[(id + 1) % data->philo_nb] != 1)
+		{
+			if (get_timestamp(data) >= time_start_eating + data->time_to_die)
+			{
+				printf("%ld %d died\n", get_timestamp(data), id);
+				return (0);
+			}
+		}
+		data->fork[id] = 0;
+		data->fork[(id + 1) % data->philo_nb] = 0;
+		pthread_mutex_lock(&ph->mutex);
+		printf("%ld %d has taken a fork\n", get_timestamp(data), id);
+		pthread_mutex_lock(&data->ph[(id + 1) % data->philo_nb].mutex);
+		printf("%ld %d has taken a fork\n", get_timestamp(data), id);
+		printf("%ld %d is eating\n", get_timestamp(data), id);
+		usleep(data->time_to_eat * 1000);
+		pthread_mutex_unlock(&ph->mutex);
+		data->fork[id] = 1;
+		pthread_mutex_unlock(&data->ph[(id + 1) % data->philo_nb].mutex);
+		data->fork[(id + 1) % data->philo_nb] = 1;
+		printf("%ld %d is sleeping\n", get_timestamp(data), id);
+		usleep(data->time_to_sleep * 1000);
+		printf("%ld %d is thinking\n", get_timestamp(data), id);
+		meal++;
 	}
-	data->fork[id] = 0;
-	data->fork[(id + 1) % data->philo_nb] = 0;
-	pthread_mutex_lock(&ph->mutex);
-	printf("%ld %d has taken a fork\n",
-		get_timestamp(data), id);
-	pthread_mutex_lock(&data->ph[(id + 1) % data->philo_nb].mutex);
-	printf("%ld %d has taken a fork\n",
-		get_timestamp(data), id);
-	printf("%ld %d is eating\n", get_timestamp(data), id);
-	usleep(data->time_to_eat * 1000);
-	pthread_mutex_unlock(&ph->mutex);
-	data->fork[id] = 1;
-	pthread_mutex_unlock(&data->ph[(id + 1) % data->philo_nb].mutex);
-	data->fork[(id + 1) % data->philo_nb] = 1;
 	return ((void *)0);
 }
 
