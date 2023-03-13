@@ -6,7 +6,7 @@
 /*   By: eholzer <eholzer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 11:59:59 by eholzer           #+#    #+#             */
-/*   Updated: 2023/03/07 17:02:27 by eholzer          ###   ########.fr       */
+/*   Updated: 2023/03/13 11:07:55 by eholzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,19 @@ typedef struct s_data
 }	t_data;
 
 // Utils functions
-int		ft_atoi(const char *str);
+int			ft_atoi(const char *str);
+void		free_memory(t_data *data);
+long int	get_timestamp(t_data *data);
+int			error_exit(t_data *data);
 
 // Init functions
-int		check_arguments(int ac);
-int		init_data(int ac, char **av, t_data *data);
+int			check_arguments(int ac);
+int			init_philo(t_data *data);
+int			init_data(int ac, char **av, t_data *data);
+
+// Threads functions
+int			create_threads(t_data *data);
+int			join_threads(t_data *data);
+void		*routine(void *arg);
 
 #endif

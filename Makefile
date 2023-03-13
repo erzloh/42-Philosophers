@@ -6,7 +6,7 @@
 #    By: eholzer <eholzer@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/21 09:34:30 by eholzer           #+#    #+#              #
-#    Updated: 2023/02/21 13:04:14 by eholzer          ###   ########.fr        #
+#    Updated: 2023/03/13 11:01:45 by eholzer          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,10 @@ NAME		=	philo
 
 SRCS_LIST	=	main.c \
 				ft_atoi.c \
-				init.c
+				init.c \
+				routine.c \
+				utils.c \
+				thread.c
 SRCS_DIR	=	sources/
 SRCS		=	${addprefix ${SRCS_DIR}, ${SRCS_LIST}}
 

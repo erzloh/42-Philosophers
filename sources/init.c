@@ -6,7 +6,7 @@
 /*   By: eholzer <eholzer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 12:59:08 by eholzer           #+#    #+#             */
-/*   Updated: 2023/03/07 17:02:38 by eholzer          ###   ########.fr       */
+/*   Updated: 2023/03/13 08:58:34 by eholzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	check_arguments(int ac)
 		printf("./program <number_of_philosophers> <time_to_die> ");
 		printf("<time_to_eat> <time_to_sleep> ");
 		printf("optional:<number_of_times_each_philosopher_must_eat>\n");
-		return (-1);
+		return (1);
 	}
 	return (0);
 }
@@ -68,7 +68,7 @@ int	init_data(int ac, char **av, t_data *data)
 	gettimeofday(&data->curr_time, NULL);
 	data->init_sec = data->curr_time.tv_sec;
 	data->init_usec = data->curr_time.tv_usec;
-	if (init_philo(data) != 0)
+	if (init_philo(data))
 		return (1);
 	return (0);
 }
