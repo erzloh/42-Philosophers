@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   threads.c                                          :+:      :+:    :+:   */
+/*   thread.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eholzer <eholzer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 11:00:28 by eholzer           #+#    #+#             */
-/*   Updated: 2023/03/13 11:01:03 by eholzer          ###   ########.fr       */
+/*   Updated: 2023/06/08 16:09:41 by eholzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	create_threads(t_data *data)
 	{
 		if (pthread_create(&data->ph[i].th, NULL, &routine, &data->ph[i]) != 0)
 		{
-			printf("Error: Couldn't create the thread.");
+			printf("Error: Couldn't create the thread.\n");
 			return (1);
 		}
 		i++;
@@ -42,7 +42,7 @@ int	join_threads(t_data *data)
 	{
 		if (pthread_join(data->ph[i].th, NULL) != 0)
 		{
-			printf("Error: Couldn't join the thread.");
+			printf("Error: Couldn't join the thread.\n");
 			return (1);
 		}
 		pthread_mutex_destroy(&data->ph[i].mutex);

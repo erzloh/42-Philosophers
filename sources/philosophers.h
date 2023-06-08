@@ -6,7 +6,7 @@
 /*   By: eholzer <eholzer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 11:59:59 by eholzer           #+#    #+#             */
-/*   Updated: 2023/03/13 11:07:55 by eholzer          ###   ########.fr       */
+/*   Updated: 2023/06/08 12:23:30 by eholzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <pthread.h>
 # include <sys/time.h>
 # include <unistd.h>
+# include <stdbool.h>
 
 // Struct prototypes
 struct					s_data;
@@ -30,6 +31,7 @@ typedef struct s_ph
 	int				id;
 	t_data			*data;
 	pthread_mutex_t	mutex;
+	long int		time_end_eating;
 }	t_ph;
 
 typedef struct s_data
@@ -41,6 +43,7 @@ typedef struct s_data
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				meals_nb;
+	bool			a_ph_died;
 	int				*res;
 	struct timeval	curr_time;
 	long int		init_sec;
@@ -51,7 +54,7 @@ typedef struct s_data
 int			ft_atoi(const char *str);
 void		free_memory(t_data *data);
 long int	get_timestamp(t_data *data);
-int			error_exit(t_data *data);
+int			error_exit(t_data *data, int error_code);
 
 // Init functions
 int			check_arguments(int ac);

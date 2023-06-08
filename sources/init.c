@@ -6,7 +6,7 @@
 /*   By: eholzer <eholzer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 12:59:08 by eholzer           #+#    #+#             */
-/*   Updated: 2023/03/13 08:58:34 by eholzer          ###   ########.fr       */
+/*   Updated: 2023/06/08 12:23:53 by eholzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ int	init_data(int ac, char **av, t_data *data)
 	gettimeofday(&data->curr_time, NULL);
 	data->init_sec = data->curr_time.tv_sec;
 	data->init_usec = data->curr_time.tv_usec;
+	data->a_ph_died = false;
 	if (init_philo(data))
 		return (1);
 	return (0);
