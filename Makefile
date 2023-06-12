@@ -6,7 +6,7 @@
 #    By: eholzer <eholzer@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/21 09:34:30 by eholzer           #+#    #+#              #
-#    Updated: 2023/03/13 11:01:45 by eholzer          ###   ########.fr        #
+#    Updated: 2023/06/12 16:05:49 by eholzer          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,10 @@ SRCS_LIST	=	main.c \
 				init.c \
 				routine.c \
 				utils.c \
-				thread.c
+				thread.c \
+				check_philos.c
+
+
 SRCS_DIR	=	sources/
 SRCS		=	${addprefix ${SRCS_DIR}, ${SRCS_LIST}}
 

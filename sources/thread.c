@@ -6,7 +6,7 @@
 /*   By: eholzer <eholzer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 11:00:28 by eholzer           #+#    #+#             */
-/*   Updated: 2023/06/08 16:09:41 by eholzer          ###   ########.fr       */
+/*   Updated: 2023/06/12 16:16:06 by eholzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int	create_threads(t_data *data)
 			return (1);
 		}
 		i++;
+		usleep(100);
 	}
 	return (0);
 }

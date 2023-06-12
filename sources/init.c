@@ -6,7 +6,7 @@
 /*   By: eholzer <eholzer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 12:59:08 by eholzer           #+#    #+#             */
-/*   Updated: 2023/06/08 12:23:53 by eholzer          ###   ########.fr       */
+/*   Updated: 2023/06/12 16:30:31 by eholzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ int	init_philo(t_data *data)
 	{
 		ph[i].id = i;
 		ph[i].data = data;
+		ph[i].meal = 0;
+		ph[i].state = START;
 		pthread_mutex_init(&ph[i].mutex, NULL);
 		i++;
 	}
@@ -68,7 +70,7 @@ int	init_data(int ac, char **av, t_data *data)
 	gettimeofday(&data->curr_time, NULL);
 	data->init_sec = data->curr_time.tv_sec;
 	data->init_usec = data->curr_time.tv_usec;
-	data->a_ph_died = false;
+	data->stop_simulation = false;
 	if (init_philo(data))
 		return (1);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: eholzer <eholzer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 11:59:59 by eholzer           #+#    #+#             */
-/*   Updated: 2023/06/08 12:23:30 by eholzer          ###   ########.fr       */
+/*   Updated: 2023/06/12 16:04:57 by eholzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,15 @@
 # include <unistd.h>
 # include <stdbool.h>
 
+// Philosopher's states enums
+typedef enum e_state
+{
+	START,
+	EATING,
+	SLEEPING,
+	THINKING
+}	t_state;
+
 // Struct prototypes
 struct					s_data;
 typedef struct s_data	t_data;
@@ -31,7 +40,9 @@ typedef struct s_ph
 	int				id;
 	t_data			*data;
 	pthread_mutex_t	mutex;
-	long int		time_end_eating;
+	long int		last_meal;
+	int				meal;
+	t_state			state;
 }	t_ph;
 
 typedef struct s_data
@@ -43,7 +54,7 @@ typedef struct s_data
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				meals_nb;
-	bool			a_ph_died;
+	bool			stop_simulation;
 	int				*res;
 	struct timeval	curr_time;
 	long int		init_sec;
@@ -53,7 +64,7 @@ typedef struct s_data
 // Utils functions
 int			ft_atoi(const char *str);
 void		free_memory(t_data *data);
-long int	get_timestamp(t_data *data);
+long int	get_time(t_data *data);
 int			error_exit(t_data *data, int error_code);
 
 // Init functions
@@ -65,5 +76,8 @@ int			init_data(int ac, char **av, t_data *data);
 int			create_threads(t_data *data);
 int			join_threads(t_data *data);
 void		*routine(void *arg);
+
+// Main thread
+void		check_philos(t_data *data);
 
 #endif

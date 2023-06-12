@@ -6,7 +6,7 @@
 /*   By: eholzer <eholzer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 10:18:22 by eholzer           #+#    #+#             */
-/*   Updated: 2023/06/08 12:15:06 by eholzer          ###   ########.fr       */
+/*   Updated: 2023/06/12 16:31:47 by eholzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int	main(int ac, char **av)
 		return (error_exit(&data, 1));
 	if (create_threads(&data))
 		return (error_exit(&data, 2));
+	check_philos(&data);
 	if (join_threads(&data))
 		return (error_exit(&data, 3));
 	free_memory(&data);

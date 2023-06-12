@@ -6,13 +6,13 @@
 /*   By: eholzer <eholzer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 09:12:05 by eholzer           #+#    #+#             */
-/*   Updated: 2023/06/08 14:54:41 by eholzer          ###   ########.fr       */
+/*   Updated: 2023/06/12 15:53:54 by eholzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-long int	get_timestamp(t_data *data)
+long int	get_time(t_data *data)
 {
 	long int	sec;
 	long int	usec;
