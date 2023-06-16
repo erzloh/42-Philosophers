@@ -6,7 +6,7 @@
 /*   By: eholzer <eholzer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 14:57:33 by eholzer           #+#    #+#             */
-/*   Updated: 2023/06/16 15:17:11 by eholzer          ###   ########.fr       */
+/*   Updated: 2023/06/16 15:25:48 by eholzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	check_arguments(int ac, char **av)
 	}
 	else if (check_alpha(av) == 1)
 	{
-		printf("Error: only number inputs are valid.\n");
+		printf("Error: only whole number inputs are valid.\n");
 		return (1);
 	}
 	else if (check_int_max(av))
