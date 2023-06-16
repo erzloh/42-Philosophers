@@ -6,7 +6,7 @@
 /*   By: eholzer <eholzer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 11:59:59 by eholzer           #+#    #+#             */
-/*   Updated: 2023/06/12 16:04:57 by eholzer          ###   ########.fr       */
+/*   Updated: 2023/06/16 15:07:38 by eholzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # include <sys/time.h>
 # include <unistd.h>
 # include <stdbool.h>
+
+# define ERROR 1
 
 // Philosopher's states enums
 typedef enum e_state
@@ -66,9 +68,10 @@ int			ft_atoi(const char *str);
 void		free_memory(t_data *data);
 long int	get_time(t_data *data);
 int			error_exit(t_data *data, int error_code);
+double		check_int_max_atoi(const char *str);
 
 // Init functions
-int			check_arguments(int ac);
+int			check_arguments(int ac, char **av);
 int			init_philo(t_data *data);
 int			init_data(int ac, char **av, t_data *data);
 

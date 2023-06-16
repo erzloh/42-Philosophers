@@ -6,7 +6,7 @@
 /*   By: eholzer <eholzer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 10:18:22 by eholzer           #+#    #+#             */
-/*   Updated: 2023/06/12 16:31:47 by eholzer          ###   ########.fr       */
+/*   Updated: 2023/06/16 15:18:18 by eholzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	main(int ac, char **av)
 {
 	t_data			data;
 
-	if (check_arguments(ac))
+	if (check_arguments(ac, av))
 		return (1);
 	if (init_data(ac, av, &data))
 		return (error_exit(&data, 1));

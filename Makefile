@@ -6,7 +6,7 @@
 #    By: eholzer <eholzer@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/21 09:34:30 by eholzer           #+#    #+#              #
-#    Updated: 2023/06/12 16:05:49 by eholzer          ###   ########.fr        #
+#    Updated: 2023/06/16 15:15:03 by eholzer          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,9 @@ SRCS_LIST	=	main.c \
 				routine.c \
 				utils.c \
 				thread.c \
-				check_philos.c
+				check_philos.c \
+				check_arguments.c \
+				check_int_max.c
 
 
 SRCS_DIR	=	sources/

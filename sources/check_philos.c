@@ -6,7 +6,7 @@
 /*   By: eholzer <eholzer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 15:40:14 by eholzer           #+#    #+#             */
-/*   Updated: 2023/06/12 16:33:50 by eholzer          ###   ########.fr       */
+/*   Updated: 2023/06/16 14:41:07 by eholzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,10 @@ void	check_philos(t_data *data)
 			{
 				data->stop_simulation = true;
 				printf("%ld %d has died\n", get_time(data), i);
+				if (data->philo_nb == 1)
+				{
+					pthread_mutex_unlock(&data->ph[0].mutex);
+				}
 				return ;
 			}
 			if (data->ph[i].meal == data->meals_nb)
