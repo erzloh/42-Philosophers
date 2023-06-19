@@ -6,7 +6,7 @@
 /*   By: eholzer <eholzer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 09:12:05 by eholzer           #+#    #+#             */
-/*   Updated: 2023/06/12 15:53:54 by eholzer          ###   ########.fr       */
+/*   Updated: 2023/06/19 11:25:06 by eholzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,15 @@ int	error_exit(t_data *data, int error_code)
 		printf("An error occured with malloc()\n");
 	free_memory(data);
 	return (error_code);
+}
+
+void	ft_sleep(int msec, t_data *data)
+{
+	int	end_time;
+
+	end_time = get_time(data) + msec;
+	while (get_time(data) < end_time)
+	{
+		usleep(51);
+	}
 }
