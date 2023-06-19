@@ -6,7 +6,7 @@
 /*   By: eholzer <eholzer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 09:08:43 by eholzer           #+#    #+#             */
-/*   Updated: 2023/06/19 13:08:27 by eholzer          ###   ########.fr       */
+/*   Updated: 2023/06/19 15:47:01 by eholzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ int	eating(t_ph *ph)
 	ph->state = EATING;
 	if (data->stop_simulation == true)
 		return (unlock_mutexes(data, ph));
+	ph->meal++;
 	printf("%ld %d is eating\n", get_time(data), ph->id);
 	ph->last_meal = get_time(data);
 	ft_sleep(data->time_to_eat, data);
@@ -73,7 +74,7 @@ void	*routine(void *arg)
 
 	ph = (t_ph *)arg;
 	ph->last_meal = get_time(ph->data);
-	while (ph->data->meals_nb == -1 || ph->meal < ph->data->meals_nb)
+	while (42)
 	{
 		if (eating(ph) == -1)
 			break ;
@@ -81,7 +82,6 @@ void	*routine(void *arg)
 			break ;
 		if (thinking(ph) == -1)
 			break ;
-		ph->meal++;
 	}
 	return ((void *)0);
 }

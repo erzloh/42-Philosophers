@@ -6,7 +6,7 @@
 /*   By: eholzer <eholzer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 11:59:59 by eholzer           #+#    #+#             */
-/*   Updated: 2023/06/19 13:37:13 by eholzer          ###   ########.fr       */
+/*   Updated: 2023/06/19 15:52:49 by eholzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,6 @@ void		*routine(void *arg);
 int			unlock_mutexes(t_data *data, t_ph *ph);
 
 // Main thread
-void		check_philos(t_data *data);
+int			check_philos(t_data *data);
 
 #endif
