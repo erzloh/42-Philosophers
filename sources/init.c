@@ -6,7 +6,7 @@
 /*   By: eholzer <eholzer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 12:59:08 by eholzer           #+#    #+#             */
-/*   Updated: 2023/06/16 14:58:03 by eholzer          ###   ########.fr       */
+/*   Updated: 2023/06/19 13:35:06 by eholzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,6 @@ int	init_data(int ac, char **av, t_data *data)
 
 	i = -1;
 	data->philo_nb = ft_atoi(av[1]);
-	data->fork = malloc(sizeof(int) * data->philo_nb);
-	if (data->fork == NULL)
-		return (1);
-	while (++i < data->philo_nb)
-		data->fork[i] = 1;
 	data->time_to_die = ft_atoi(av[2]);
 	data->time_to_eat = ft_atoi(av[3]);
 	data->time_to_sleep = ft_atoi(av[4]);

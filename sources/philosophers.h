@@ -6,7 +6,7 @@
 /*   By: eholzer <eholzer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 11:59:59 by eholzer           #+#    #+#             */
-/*   Updated: 2023/06/19 11:25:23 by eholzer          ###   ########.fr       */
+/*   Updated: 2023/06/19 13:37:13 by eholzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ typedef struct s_ph
 typedef struct s_data
 {
 	t_ph			*ph;
-	int				*fork;
 	int				philo_nb;
 	int				time_to_die;
 	int				time_to_eat;
@@ -63,16 +62,20 @@ typedef struct s_data
 	long int		init_usec;
 }	t_data;
 
+// Arguments checking functions
+int			check_alpha(char **av);
+int			check_int_max(char **av);
+double		check_int_max_atoi(const char *str);
+int			check_arguments(int ac, char **av);
+
 // Utils functions
 int			ft_atoi(const char *str);
 void		free_memory(t_data *data);
 long int	get_time(t_data *data);
 int			error_exit(t_data *data, int error_code);
-double		check_int_max_atoi(const char *str);
 void		ft_sleep(int msec, t_data *data);
 
 // Init functions
-int			check_arguments(int ac, char **av);
 int			init_philo(t_data *data);
 int			init_data(int ac, char **av, t_data *data);
 
@@ -80,6 +83,7 @@ int			init_data(int ac, char **av, t_data *data);
 int			create_threads(t_data *data);
 int			join_threads(t_data *data);
 void		*routine(void *arg);
+int			unlock_mutexes(t_data *data, t_ph *ph);
 
 // Main thread
 void		check_philos(t_data *data);

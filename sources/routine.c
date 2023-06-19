@@ -6,7 +6,7 @@
 /*   By: eholzer <eholzer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 09:08:43 by eholzer           #+#    #+#             */
-/*   Updated: 2023/06/19 11:25:33 by eholzer          ###   ########.fr       */
+/*   Updated: 2023/06/19 13:08:27 by eholzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,31 +36,19 @@ int	eating(t_ph *ph)
 		return (-1);
 	pthread_mutex_lock(&ph->mutex);
 	if (data->stop_simulation == true)
-	{
-		pthread_mutex_unlock(&ph->mutex);
-		return (-1);
-	}
+		return (unlock_mutexes(data, ph));
 	printf("%ld %d has taken a fork\n", get_time(data), ph->id);
 	pthread_mutex_lock(&data->ph[(ph->id + 1) % data->philo_nb].mutex);
 	if (data->stop_simulation == true)
-	{
-		pthread_mutex_unlock(&ph->mutex);
-		pthread_mutex_unlock(&data->ph[(ph->id + 1) % data->philo_nb].mutex);
-		return (-1);
-	}
+		return (unlock_mutexes(data, ph));
 	printf("%ld %d has taken a fork\n", get_time(data), ph->id);
 	ph->state = EATING;
 	if (data->stop_simulation == true)
-	{
-		pthread_mutex_unlock(&ph->mutex);
-		pthread_mutex_unlock(&data->ph[(ph->id + 1) % data->philo_nb].mutex);
-		return (-1);
-	}
+		return (unlock_mutexes(data, ph));
 	printf("%ld %d is eating\n", get_time(data), ph->id);
 	ph->last_meal = get_time(data);
-	usleep(data->time_to_eat * 1000);
-	pthread_mutex_unlock(&ph->mutex);
-	pthread_mutex_unlock(&data->ph[(ph->id + 1) % data->philo_nb].mutex);
+	ft_sleep(data->time_to_eat, data);
+	unlock_mutexes(data, ph);
 	return (0);
 }
 
@@ -74,7 +62,7 @@ int	sleeping(t_ph *ph)
 		return (-1);
 	ph->state = SLEEPING;
 	printf("%ld %d is sleeping\n", get_time(data), ph->id);
-	usleep(data->time_to_sleep * 1000);
+	ft_sleep(data->time_to_sleep, data);
 	return (0);
 }
 

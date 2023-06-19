@@ -6,7 +6,7 @@
 /*   By: eholzer <eholzer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 09:12:05 by eholzer           #+#    #+#             */
-/*   Updated: 2023/06/19 11:25:06 by eholzer          ###   ########.fr       */
+/*   Updated: 2023/06/19 13:38:30 by eholzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,6 @@ long int	get_time(t_data *data)
 
 void	free_memory(t_data *data)
 {
-	if (data->fork)
-		free(data->fork);
 	free(data->ph);
 }
 
@@ -47,6 +45,6 @@ void	ft_sleep(int msec, t_data *data)
 	end_time = get_time(data) + msec;
 	while (get_time(data) < end_time)
 	{
-		usleep(51);
+		usleep(50);
 	}
 }

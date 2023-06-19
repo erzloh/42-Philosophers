@@ -1,30 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   routine2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eholzer <eholzer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/21 10:18:22 by eholzer           #+#    #+#             */
-/*   Updated: 2023/06/19 11:35:55 by eholzer          ###   ########.fr       */
+/*   Created: 2023/06/19 12:58:31 by eholzer           #+#    #+#             */
+/*   Updated: 2023/06/19 13:08:28 by eholzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-int	main(int ac, char **av)
+int	unlock_mutexes(t_data *data, t_ph *ph)
 {
-	t_data			data;
-
-	if (check_arguments(ac, av))
-		return (1);
-	if (init_data(ac, av, &data))
-		return (error_exit(&data, 1));
-	if (create_threads(&data))
-		return (error_exit(&data, 2));
-	check_philos(&data);
-	if (join_threads(&data))
-		return (error_exit(&data, 3));
-	free_memory(&data);
-	return (0);
+	pthread_mutex_unlock(&ph->mutex);
+	if (data->philo_nb != 1)
+		pthread_mutex_unlock(&data->ph[(ph->id + 1) % data->philo_nb].mutex);
+	return (-1);
 }

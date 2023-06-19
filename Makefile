@@ -6,7 +6,7 @@
 #    By: eholzer <eholzer@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/21 09:34:30 by eholzer           #+#    #+#              #
-#    Updated: 2023/06/16 15:15:03 by eholzer          ###   ########.fr        #
+#    Updated: 2023/06/19 13:08:51 by eholzer          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ SRCS_LIST	=	main.c \
 				ft_atoi.c \
 				init.c \
 				routine.c \
+				routine2.c \
 				utils.c \
 				thread.c \
 				check_philos.c \
